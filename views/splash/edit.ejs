@@ -1,14 +1,14 @@
 <% include ../partials/header %>
 
     <h1>Edit Splash
-        <form method="POST" action="/splash/<%= splash._id %>/?_method=DELETE" style="margin: 0; padding: 0; float:right;">
-            <button type="submit" class="btn btn-danger">Delete</button>
+        <form method="POST" action="/splash/<%= splash._id %>/?_method=DELETE" id="delete-button">
+            <button type="submit" class="btn btn-danger">Delete This Splash</button>
         </form>
     </h1>
 
     <form method="POST" action="/splash/<%= splash._id %>/?_method=PUT">
         <div class="form-group">
-            <label for="imageTitle">Image Title</label>
+            <label for="imageTitle">Title</label>
             <input type="input" class="form-control" id="imageTitle" name="title" value="<%= splash.title %>">
         </div>
         <div class="form-group">

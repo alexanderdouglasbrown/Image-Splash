@@ -28,5 +28,5 @@ body{
 }
 
 #delete-button{
-    margin-top: 500px;
+    float:right;
 }
