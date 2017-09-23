@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+
+    <h1>Edit Splash
+        <form method="POST" action="/splash/<%= splash._id %>/?_method=DELETE" style="margin: 0; padding: 0; float:right;">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </h1>
+
+    <form method="POST" action="/splash/<%= splash._id %>/?_method=PUT">
+        <div class="form-group">
+            <label for="imageTitle">Image Title</label>
+            <input type="input" class="form-control" id="imageTitle" name="title" value="<%= splash.title %>">
+        </div>
+        <div class="form-group">
+            <label for="imageURL">Image URL</label>
+            <input type="input" class="form-control" id="imageURL" name="url" value="<%= splash.url %>">
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+
+    <% include ../partials/footer %>

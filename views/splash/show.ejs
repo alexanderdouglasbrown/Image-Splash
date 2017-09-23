@@ -1,0 +1,13 @@
+<% include ../partials/header %>
+
+    <div class="row">
+        <div class="col-12" id="splash">
+            <h1>
+                <%= splash.title %>
+            </h1>
+            <img class="full-splash-image" src="<%= splash.url %>">
+            <div><a href="<%= splash._id %>/edit">Edit</a></div>
+        </div>
+    </div>
+
+    <% include ../partials/footer %>
