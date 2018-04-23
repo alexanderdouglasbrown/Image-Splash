@@ -5,9 +5,20 @@
             <h1>
                 <%= splash.title %>
             </h1>
-            <h6><a href="<%= splash._id %>/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a></h6>
-            <img class="full-splash-image" src="<%= splash.url %>">
-            <div></div>
+            <p>
+                <em>Submitted by
+                    <%= splash.author.username %>
+                </em>
+                <% if (user && user._id.equals(splash.author.id)) { %>
+                    <span class = "small-gap"></span>
+                    <a href="<%= splash._id %>/edit">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                    <% } %>
+            </p>
+            <img class="full-splash-image" src="../images/splashes/splash_<%= splash.filename %>">
+            <p>
+                <%= splash.description %>
+            </p>
         </div>
     </div>
 

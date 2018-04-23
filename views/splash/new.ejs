@@ -1,14 +1,18 @@
 <% include ../partials/header %>
 
     <h1>Submit New Splash</h1>
-    <form method = "POST" action="/splash">
+    <form method = "POST" action="/splash" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="imageUpload">Upload Image</label>
+            <input type="file" class="form-control" id="imageUpload" name="image">
+        </div>
         <div class="form-group">
             <label for="imageTitle">Image Title</label>
             <input type="input" class="form-control" id="imageTitle" name="title">
         </div>
         <div class="form-group">
-            <label for="imageURL">Image URL</label>
-            <input type="input" class="form-control" id="imageURL" name="url">
+            <label for="imageDescription">Description</label>
+            <textarea class="form-control" id="imageDescription" name="description"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

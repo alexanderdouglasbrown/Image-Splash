@@ -2,8 +2,8 @@
 
     <% splashes.forEach((splash) => { %>
         <a href = "/splash/<%= splash._id %>" class = "splash-link">
-            <img class="splash-image" src="<%= splash.url %>" />
+            <img class="splash-image" src="../images/thumbs/thumb_<%= splash.filename %>" />
         </a>
-        <% }) %>
+    <% }) %>
 
 <% include ../partials/footer %>

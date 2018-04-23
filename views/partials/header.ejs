@@ -3,8 +3,14 @@
 
 <head>
     <title>Image Splash</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/7eb70dd4c7.js"></script>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
@@ -13,11 +19,39 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/splash">Image Splash</a>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/splash/new">New Splash</a>
-                </li>
+            <ul class="nav nav-pills justify-content-end">
+                <% if (user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/splash/new">New Splash</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <%= user.username %>
+                        </a>
+                        <div class="dropdown-menu">
+                            <!-- <a class="dropdown-item disabled" href="">Profile</a>
+                            <div class="dropdown-divider"></div> -->
+                            <a class="dropdown-item" href="/logout">Log out</a>
+                        </div>
+                <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/login">Log In</a>
+                        </li>
+                <% } %>
             </ul>
         </div>
     </nav>
-    <div class="container">
+    <div class="container undernav">
+        <% if (typeof info != "undefined" && info.length != 0) { %>
+            <div class="alert alert-secondary" role="alert">
+                <%= info %>
+            </div>
+        <% } %>
+        <% if (typeof error != "undefined" && error.length != 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>

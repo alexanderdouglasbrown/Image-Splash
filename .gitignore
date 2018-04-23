@@ -1,3 +1,10 @@
+.DS_Store
+
+Assets
+public/images/thumbs/*
+public/images/splashes/*
+uploads
+
 # Logs
 logs
 *.log

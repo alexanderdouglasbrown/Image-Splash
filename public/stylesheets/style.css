@@ -1,16 +1,25 @@
 body{
-    background: #ccf2ff
+    background: #ccf2ff;
+    padding-bottom: 40px;
+}
+
+.undernav {
+    margin-top: 20px;
+}
+
+.small-gap {
+    padding: 20px;
 }
 
 .splash-image {
     width: 300px;
     height: 300px;
-    object-fit: contain;
+    object-fit: cover;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background: black;
+    background: lightblue;
     border-radius: 30px;
     margin: 20px 20px 0px 20px;
 }

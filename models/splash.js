@@ -2,7 +2,19 @@ const mongoose = require("mongoose")
 
 const splashSchema = new mongoose.Schema({
     title: String,
-    url: String
+    description: String,
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    filename: String,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    }
 })
 
 module.exports = mongoose.model("Splash", splashSchema)

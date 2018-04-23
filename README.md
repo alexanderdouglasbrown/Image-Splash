@@ -1,5 +1,3 @@
-# Image Splash (Incomplete project)
+# Image Splash (Work In Progress)
 
-A project for building my full-stack skills. (ie, RESTful routing, MangoDB, Logins/Sessions, Node stuff)
-
-Not sure how far I'll take this. For now it's just a testing ground.
+Not feature complete. I do intend to make the UI nicer too.
