@@ -2,8 +2,11 @@
 
 Assets
 public/images/thumbs/*
+!public/images/thumbs/.gitkeep
 public/images/splashes/*
-uploads
+!public/images/splashes/.gitkeep
+uploads/*
+!uploads/.gitkeep
 
 # Logs
 logs
