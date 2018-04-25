@@ -14,7 +14,17 @@
             <label for="imageDescription">Description</label>
             <textarea class="form-control" id="imageDescription" name="description"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+        <button type="button" class="btn btn-light hide" id="processingButton" disabled>Processing...</button>
     </form>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("click", disableButton)
+
+        function disableButton(){
+            document.getElementById("submitButton").classList.add("hide")
+            document.getElementById("processingButton").classList.remove("hide")
+        }
+    </script>
  
     <% include ../partials/footer %>

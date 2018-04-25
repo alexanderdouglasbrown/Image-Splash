@@ -7,7 +7,8 @@ const splashSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    filename: String,
+    public_id: String,
+    format: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

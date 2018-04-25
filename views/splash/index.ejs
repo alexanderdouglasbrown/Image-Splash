@@ -2,7 +2,8 @@
 
     <% splashes.forEach((splash) => { %>
         <a href = "/splash/<%= splash._id %>" class = "splash-link">
-            <img class="splash-image" src="../images/thumbs/thumb_<%= splash.filename %>" />
+            <% console.log(splash) %>
+            <img class="splash-image" src="https://res.cloudinary.com/hpzzynrei/image/upload/w_300,h_300,c_thumb,g_face/v1524635540/<%= splash.public_id %>.<%= splash.format %>" />
         </a>
     <% }) %>
 

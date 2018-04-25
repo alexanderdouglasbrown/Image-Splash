@@ -4,6 +4,7 @@ const express = require("express"),
     middleware = require("../middleware"),
     fs = require("fs"),
     gm = require("gm").subClass({ imageMagick: true }),
+    cloudinary = require("cloudinary"),
     Splash = require("../models/splash.js")
 
 const storage = multer.diskStorage({
@@ -25,51 +26,45 @@ router.get("/", (req, res) => {
 
 router.post("/", upload.single("image"), (req, res) => {
     const uploadURI = "./uploads/" + req.file.filename
-    const thumbURI = "./public/images/thumbs/thumb_" + req.file.filename
-    const compressedURI = "./public/images/splashes/splash_" + req.file.filename
-
-    //Using functions to hide callback hell
-    function startTheChain() { //Make the thumbnail
-        gm(uploadURI)
-            .resize(350, 350)
-            .noProfile()
-            .autoOrient()
-            .write(thumbURI, (err) => {
-                if (!err) {
-                    processImage()
-                } else {
-                    req.flash("error", "Could not create Splash")
-                    deleteTheOriginal()
-                    return res.redirect("/splash")
-                }
-            })
-    }
+    const processedURI = "./uploads/proc_" + req.file.filename
 
     function processImage() {
+        //Cloudinary wasn't handling auto-rotation properly
+        //Also, hacky image error checking
         gm(uploadURI)
             .noProfile()
             .autoOrient()
-            .write(compressedURI, (err) => {
-                deleteTheOriginal() //Don't want it either way now
-
+            .write(processedURI, (err) => {
                 if (!err) {
-                    createSplash()
+                    sendToCloudinary()
                 } else {
-                    req.flash("error", "Could not create Splash")
+                    console.log(err)
+                    fs.unlink(uploadURI, (err) => { })
+                    req.flash("error", "Could not create Splash (Processing)")
                     return res.redirect("/splash")
                 }
             })
     }
 
-    function deleteTheOriginal(){
-        fs.unlink(uploadURI, (err)=>{})
+    function sendToCloudinary() {
+        cloudinary.v2.uploader.upload(processedURI, (err, image) => {
+            fs.unlink(uploadURI, (err) => { })
+            fs.unlink(processedURI, (err) => { })
+            if (err) {
+                req.flash("error", "Could not create Splash (Upload)")
+                return res.redirect("/splash")
+            } else {
+                commitToDB(image.public_id, image.format)
+            }
+        })
     }
 
-    function createSplash() { //Add to DB and redirect
+    function commitToDB(publicID, fileFormat) {
         const newSplash = {
             title: req.body.title,
             description: req.body.description,
-            filename: req.file.filename,
+            public_id: publicID,
+            format: fileFormat,
             author: {
                 id: req.user._id,
                 username: req.user.username
@@ -78,13 +73,13 @@ router.post("/", upload.single("image"), (req, res) => {
 
         Splash.create(newSplash, (err) => {
             if (err) {
-                console.log("An error occured trying to create new Splash")
+                req.flash("error", "Could not create Splash (DB)")
             }
             res.redirect("/splash")
         })
     }
 
-    startTheChain()
+    processImage()
 })
 
 router.get("/new", middleware.checkLoggedIn, (req, res) => {

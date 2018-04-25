@@ -11,14 +11,13 @@ body{
     padding: 20px;
 }
 
+.hide {
+    display: none;
+}
+
 .splash-image {
     width: 300px;
     height: 300px;
-    object-fit: cover;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: lightblue;
     border-radius: 30px;
     margin: 20px 20px 0px 20px;
