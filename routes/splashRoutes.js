@@ -38,7 +38,6 @@ router.post("/", upload.single("image"), (req, res) => {
                 if (!err) {
                     sendToCloudinary()
                 } else {
-                    console.log(err)
                     fs.unlink(uploadURI, (err) => { })
                     req.flash("error", "Could not create Splash (Processing)")
                     return res.redirect("/splash")
