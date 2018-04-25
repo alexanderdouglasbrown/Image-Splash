@@ -1,10 +1,10 @@
 <% include ../partials/header %>
 
     <h1>Submit New Splash</h1>
-    <form method = "POST" action="/splash" enctype="multipart/form-data">
+    <form method="POST" action="/splash" enctype="multipart/form-data">
         <div class="form-group">
             <label for="imageUpload">Upload Image</label>
-            <input type="file" class="form-control" id="imageUpload" name="image">
+            <input type="file" class="form-control" id="imageUpload" name="image" required>
         </div>
         <div class="form-group">
             <label for="imageTitle">Image Title</label>
@@ -21,10 +21,12 @@
     <script>
         document.getElementById("submitButton").addEventListener("click", disableButton)
 
-        function disableButton(){
-            document.getElementById("submitButton").classList.add("hide")
-            document.getElementById("processingButton").classList.remove("hide")
+        function disableButton() {
+            if (document.getElementById("imageUpload").value) {
+                document.getElementById("submitButton").classList.add("hide")
+                document.getElementById("processingButton").classList.remove("hide")
+            }
         }
     </script>
- 
-    <% include ../partials/footer %>
+
+<% include ../partials/footer %>
