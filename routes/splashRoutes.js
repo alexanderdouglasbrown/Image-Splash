@@ -18,13 +18,21 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
-    //skip() and limit() to pull a specific range
-    Splash.find().sort({ "date": -1 }).exec((err, cb) => {
-        res.render("splash/index", { splashes: cb })
+    const displayAmount = 12
+    let pageNum = 1
+
+    if (req.query.page && req.query.page > 0)
+        pageNum = req.query.page
+
+    Splash.find().sort({ "date": -1 }).limit(displayAmount).skip((pageNum - 1) * displayAmount).exec((err, cb) => {
+        Splash.count().exec((err, count) => {
+            const maxPages = Math.ceil(count / displayAmount)
+            res.render("splash/index", { splashes: cb, page: pageNum, maxPages: maxPages })
+        })
     })
 })
 
-router.post("/", upload.single("image"), (req, res) => {
+router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) => {
     const uploadURI = "./uploads/" + req.file.filename
     const processedURI = "./uploads/proc_" + req.file.filename
 

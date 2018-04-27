@@ -1,9 +1,21 @@
 <% include ../partials/header %>
 
-    <% splashes.forEach((splash) => { %>
-        <a href = "/splash/<%= splash._id %>" class = "splash-link">
-            <img class="splash-image" src="https://res.cloudinary.com/hpzzynrei/image/upload/w_300,h_300,c_thumb,g_face/v1524635540/<%= splash.public_id %>.<%= splash.format %>" />
-        </a>
-    <% }) %>
+<div id="splashes">
+<% splashes.forEach((splash) => { %>
+    <a href="/splash/<%= splash._id %>" class="splash-link">
+        <img class="splash-image" src="https://res.cloudinary.com/hpzzynrei/image/upload/w_300,h_300,c_thumb,g_face/v1524635540/<%= splash.public_id %>.<%= splash.format %>"
+        />
+    </a>
+<% }) %>
+</div>
+
+<div id="navButtons">
+    <% if (Number(page) > 1) { %>
+    <a href="/splash?page=<%= Number(page) - 1 %>"><button type="button" class="btn btn-sm btn-outline-primary" id="prevButton">Previous</button></a>
+    <% } %>
+    <% if ((Number(page) + 1) <= maxPages) { %>
+    <a href="/splash?page=<%= Number(page) + 1 %>"><button type="button" class="btn btn-sm btn-outline-primary" id="nextButton">Next</button></a>
+    <% } %>
+</div>
 
 <% include ../partials/footer %>

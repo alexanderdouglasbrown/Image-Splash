@@ -31,6 +31,15 @@ body{
     max-width: 100%;
 }
 
+#navButtons {
+    margin-top: 20px;
+}
+
+#navButtons button {
+    width: 75px;
+    margin-right: 5px;
+}
+
 #splash {
     text-align: center;
 }

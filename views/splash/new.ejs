@@ -18,15 +18,6 @@
         <button type="button" class="btn btn-light hide" id="processingButton" disabled>Processing...</button>
     </form>
 
-    <script>
-        document.getElementById("submitButton").addEventListener("click", disableButton)
-
-        function disableButton() {
-            if (document.getElementById("imageUpload").value) {
-                document.getElementById("submitButton").classList.add("hide")
-                document.getElementById("processingButton").classList.remove("hide")
-            }
-        }
-    </script>
+    <script src="/javascripts/submitImage.js"></script>
 
 <% include ../partials/footer %>
