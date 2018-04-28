@@ -1,26 +1,56 @@
-body{
-    background: #ccf2ff;
-    padding-bottom: 40px;
+body { 
+    background: url("/images/background.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    padding-bottom: 20px;
 }
 
-.undernav {
-    margin-top: 20px;
+textarea {
+    min-height: 200px;
 }
 
-.small-gap {
-    padding: 20px;
+.comment textarea {
+    min-height: 75px;
+}
+
+.edit-button {
+    margin-left: 3px;
 }
 
 .hide {
     display: none;
 }
 
+.navbar-custom {
+    background-color:rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+}
+
+.box {
+    background-color:rgba(255, 255, 255, 0.9);
+    padding: 50px 50px 50px 50px;
+    border-radius: 20px;
+}
+
+.comment {
+    background-color:rgba(255, 255, 255, 0.9);
+    padding: 20px 20px 5px 20px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+.comment input {
+    margin-top: 5px;
+}
+
 .splash-image {
-    width: 300px;
-    height: 300px;
     background: lightblue;
     border-radius: 30px;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
 }
 
 .splash-link {
@@ -31,10 +61,6 @@ body{
     max-width: 100%;
 }
 
-#navButtons {
-    margin-top: 20px;
-}
-
 #navButtons button {
     width: 75px;
     margin-right: 5px;
@@ -42,6 +68,14 @@ body{
 
 #splash {
     text-align: center;
+}
+
+#splash p {
+    text-align: left;
+}
+
+#splash .splash-author {
+    text-align: right;
 }
 
 #delete-button{

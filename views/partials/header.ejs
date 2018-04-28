@@ -3,6 +3,7 @@
 
 <head>
     <title>Image Splash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -16,17 +17,17 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container">
             <a class="navbar-brand" href="/splash">Image Splash</a>
             <ul class="nav nav-pills justify-content-end">
                 <% if (user) { %>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/splash/new">New Splash</a>
+                        <a class="nav-link active" href="/splash/new">Make A Splash</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <%= user.username %>
+                            <strong><%= user.username %></strong>
                         </a>
                         <div class="dropdown-menu">
                             <!-- <a class="dropdown-item disabled" href="">Profile</a>

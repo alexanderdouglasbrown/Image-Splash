@@ -1,43 +1,44 @@
 <% include ../partials/header %>
 
     <div class="row">
-        <div class="col-12" id="splash">
+        <div class="col-12 box" id="splash">
             <h1>
                 <%= splash.title %>
             </h1>
-            <p>
-                <em>Submitted by
-                    <%= splash.author.username %>
-                </em>
-                <% if (user && user._id.equals(splash.author.id)) { %>
-                    <span class = "small-gap"></span>
-                    <a href="<%= splash._id %>/edit">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
-                    <% } %>
-            </p>
             <img class="full-splash-image" src="https://res.cloudinary.com/hpzzynrei/image/upload/v1524635540/<%= splash.public_id %>.<%= splash.format %>">
+                <div class="splash-author"><em>Submitted by<strong>
+                    <%= splash.author.username %>
+                </strong></em>
+                <% if (user && user._id.equals(splash.author.id)) { %>
+                    <span class = "edit-button">
+                        <a href="<%= splash._id %>/edit">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</a>
+                        <% } %>
+                    </span>
+                </div>
             <p>
                 <%= splash.description %>
             </p>
         </div>
-        <div class = "col-12">
-            <% if (user) { %>
-            <form method="POST" action="/splash/<%= splash._id %>/comment/new">
-                <div class="form-group">
-                    <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..."></textarea>
-                    <input type="submit" class="btn btn-primary"></input>
-                </div>
-            </form>
-            <% } %>
-            <% splash.comments.reverse().forEach((comment) => { %>
-            <div class="comment">
-                <p><strong><%= comment.author.username %></strong> <%= comment.text %>
-                <br>
-                <% if (user && user._id.equals(comment.author.id)) { %>
-                    <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit">Edit</a>
-                <% } %>
-                </p>
+        <% if (user) { %>
+            <div class = "col-12 comment">
+                <form method="POST" action="/splash/<%= splash._id %>/comment/new">
+                    <div class="form-group">
+                        <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..."></textarea>
+                        <input type="submit" class="btn btn-primary pull-right"></input>
+                    </div>
+                </form>
             </div>
+        <% } %>
+            <% splash.comments.reverse().forEach((comment) => { %>
+                <div class="col-12 comment">
+                    <p><strong><%= comment.author.username %></strong> <%= comment.text %>
+                    <br>
+                        <% if (user && user._id.equals(comment.author.id)) { %>
+                            <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+                        <% } %>
+                    </p>
+                </div>
             <% }) %>
         </div>
     </div>

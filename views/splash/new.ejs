@@ -1,6 +1,7 @@
 <% include ../partials/header %>
 
-    <h1>Submit New Splash</h1>
+<div class="box">
+    <h1>Make A Splash</h1>
     <form method="POST" action="/splash" enctype="multipart/form-data">
         <div class="form-group">
             <label for="imageUpload">Upload Image</label>
@@ -17,6 +18,7 @@
         <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
         <button type="button" class="btn btn-light hide" id="processingButton" disabled>Processing...</button>
     </form>
+</div>
 
     <script src="/javascripts/submitImage.js"></script>
 

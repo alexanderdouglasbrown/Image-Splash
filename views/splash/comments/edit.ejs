@@ -1,5 +1,6 @@
 <% include ../../partials/header %>
 
+<div class="box">
     <h1>Edit Comment
         <form method="POST" action="/splash/<%= splash_id %>/comment/<%= comment._id %>/?_method=DELETE" id="delete-button">
             <button type="submit" class="btn btn-danger">Delete This Comment</button>
@@ -13,5 +14,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>
     </form>
+</div>
 
 <% include ../../partials/footer %>

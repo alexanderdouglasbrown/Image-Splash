@@ -1,3 +1,3 @@
-# Image Splash (Work In Progress)
+# Image Splash
 
-Not feature complete. I do intend to make the UI nicer too.
+An image sharing website.
