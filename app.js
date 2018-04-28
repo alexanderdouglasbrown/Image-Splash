@@ -39,10 +39,12 @@ app.use((req, res, next) => {
 })
 
 const routes = require("./routes/routes.js"),
-    splashRoutes = require("./routes/splashRoutes.js")
+    splashRoutes = require("./routes/splashRoutes.js"),
+    commentRoutes = require("./routes/commentRoutes.js")
 
 app.use("/", routes)
 app.use("/splash", splashRoutes)
+app.use("/splash/:id/comment", commentRoutes)
 app.use((req, res) => {
     res.type("text/plain")
     res.status(404)

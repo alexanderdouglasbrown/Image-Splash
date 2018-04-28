@@ -1,0 +1,17 @@
+<% include ../../partials/header %>
+
+    <h1>Edit Comment
+        <form method="POST" action="/splash/<%= splash_id %>/comment/<%= comment._id %>/?_method=DELETE" id="delete-button">
+            <button type="submit" class="btn btn-danger">Delete This Comment</button>
+        </form>
+    </h1>
+
+    <form method="POST" action="/splash/<%= splash_id %>/comment/<%= comment._id %>/?_method=PUT">
+        <div class="form-group">
+            <label for="imageDescription">Comment</label>
+            <textarea class="form-control" id="imageDescription" name="text"><%= comment.text %></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+<% include ../../partials/footer %>

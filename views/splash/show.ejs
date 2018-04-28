@@ -20,6 +20,26 @@
                 <%= splash.description %>
             </p>
         </div>
+        <div class = "col-12">
+            <% if (user) { %>
+            <form method="POST" action="/splash/<%= splash._id %>/comment/new">
+                <div class="form-group">
+                    <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..."></textarea>
+                    <input type="submit" class="btn btn-primary"></input>
+                </div>
+            </form>
+            <% } %>
+            <% splash.comments.reverse().forEach((comment) => { %>
+            <div class="comment">
+                <p><strong><%= comment.author.username %></strong> <%= comment.text %>
+                <br>
+                <% if (user && user._id.equals(comment.author.id)) { %>
+                    <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit">Edit</a>
+                <% } %>
+                </p>
+            </div>
+            <% }) %>
+        </div>
     </div>
 
     <% include ../partials/footer %>

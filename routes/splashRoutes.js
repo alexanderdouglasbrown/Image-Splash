@@ -1,7 +1,7 @@
 const express = require("express"),
     router = express.Router(),
-    multer = require("multer"),
     middleware = require("../middleware"),
+    multer = require("multer"),
     fs = require("fs"),
     gm = require("gm").subClass({ imageMagick: true }),
     cloudinary = require("cloudinary"),
@@ -94,7 +94,7 @@ router.get("/new", middleware.checkLoggedIn, (req, res) => {
 })
 
 router.get("/:id", (req, res) => {
-    Splash.findById(req.params.id, (err, cb) => {
+    Splash.findById(req.params.id).populate("comments").exec((err, cb) => {
         if (err || !cb) {
             req.flash("error", "Splash not found")
             return res.redirect("/splash")
