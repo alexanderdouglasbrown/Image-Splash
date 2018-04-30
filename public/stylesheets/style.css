@@ -16,6 +16,15 @@ textarea {
     min-height: 75px;
 }
 
+.unreleased {
+    visibility: hidden;
+    height: 0px;
+}
+
+.add-comment {
+    float: right;
+}
+
 .edit-button {
     margin-left: 3px;
 }
@@ -75,7 +84,14 @@ textarea {
 }
 
 #splash .splash-author {
-    text-align: right;
+    float: right;
+    display: inline-block;
+}
+
+#splash .like {
+    text-align: left;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 #delete-button{
