@@ -12,6 +12,10 @@ textarea {
     min-height: 200px;
 }
 
+p {
+    white-space: pre-line;
+}
+
 .comment textarea {
     min-height: 75px;
 }
@@ -40,7 +44,10 @@ textarea {
 
 .box {
     background-color:rgba(255, 255, 255, 0.9);
-    padding: 50px 50px 50px 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
     border-radius: 20px;
 }
 

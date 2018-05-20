@@ -12,7 +12,7 @@ module.exports = {
     },
     checkSplashOwner: (req, res, next) => {
         Splash.findById(req.params.id, (err, cb) => {
-            if (cb.author.id.equals(req.user._id))
+            if (cb.author.id.equals(req.user._id) || req.user.isMod)
                 return next()
             else {
                 req.flash("error", "You do not have permission to perform that action")
@@ -22,7 +22,7 @@ module.exports = {
     },
     checkCommentOwner: (req, res, next) => {
         Comment.findById(req.params.comment_id, (err, cb) => {
-            if (cb.author.id.equals(req.user._id))
+            if (cb.author.id.equals(req.user._id) || req.user.isMod)
                 return next()
             else {
                 req.flash("error", "You do not have permission to perform that action")

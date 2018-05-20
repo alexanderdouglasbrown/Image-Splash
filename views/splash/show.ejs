@@ -9,20 +9,18 @@
             <div class="like">
                 <button class="btn unreleased"><i class="far fa-heart"></i></button>
                 <div class="splash-author">
-                        <em>Submitted by<strong>
-                            <%= splash.author.username %>
-                        </strong></em>
-                        <% if (user && user._id.equals(splash.author.id)) { %>
-                            <span class = "edit-button">
-                                <a href="<%= splash._id %>/edit">
-                                    <i class="far fa-edit" aria-hidden="true"></i> Edit</a>
-                                <% } %>
-                            </span>
-                        </div>
+                    <em>Submitted by<strong>
+                        <%= splash.author.username %>
+                    </strong></em>
+                    <% if (user && (user._id.equals(splash.author.id) || user.isMod)) { %>
+                        <span class = "edit-button">
+                            <a href="<%= splash._id %>/edit">
+                                <i class="far fa-edit" aria-hidden="true"></i> Edit</a>
+                            <% } %>
+                        </span>
+                    </div>
             </div>
-            <p>
-                <%= splash.description %>
-            </p>
+            <p><%= splash.description %></p>
         </div>
         <% if (user) { %>
             <div class = "col-12 comment">
@@ -36,12 +34,10 @@
         <% } %>
             <% splash.comments.forEach((comment) => { %>
                 <div class="col-12 comment">
-                    <p><strong><%= comment.author.username %></strong> <%= comment.text %>
-                    <br>
-                        <% if (user && user._id.equals(comment.author.id)) { %>
-                            <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit"><i class="far fa-edit" aria-hidden="true"></i>Edit</a>
-                        <% } %>
-                    </p>
+                    <strong><%= comment.author.username %></strong><p><%= comment.text %></p>
+                    <% if (user && (user._id.equals(comment.author.id) || user.isMod)) { %>
+                        <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit"><i class="far fa-edit" aria-hidden="true"></i>Edit</a>
+                    <% } %>
                 </div>
             <% }) %>
         </div>
