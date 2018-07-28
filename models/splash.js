@@ -22,6 +22,8 @@ const splashSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ]
-})
+}, {
+        usePushEach: true
+    })
 
 module.exports = mongoose.model("Splash", splashSchema)

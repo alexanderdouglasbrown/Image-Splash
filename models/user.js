@@ -8,7 +8,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-})
+}, {
+        usePushEach: true
+    })
 
 userSchema.plugin(passportLocalMongoose)
 
