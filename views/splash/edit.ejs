@@ -10,11 +10,11 @@
     <form method="POST" action="/splash/<%= splash._id %>/?_method=PUT">
         <div class="form-group">
             <label for="imageTitle">Title</label>
-            <input type="input" class="form-control" id="imageTitle" name="title" value="<%= splash.title %>">
+            <input type="input" class="form-control" id="imageTitle" name="title" value="<%= splash.title %>" maxlength="64">
         </div>
         <div class="form-group">
             <label for="imageDescription">Description</label>
-            <textarea class="form-control" id="imageDescription" name="description"><%= splash.description %></textarea>
+            <textarea class="form-control" id="imageDescription" name="description" maxlength="20000"><%= splash.description %></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>
     </form>

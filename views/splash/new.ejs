@@ -9,11 +9,11 @@
         </div>
         <div class="form-group">
             <label for="imageTitle">Image Title</label>
-            <input type="input" class="form-control" id="imageTitle" name="title">
+            <input type="input" class="form-control" id="imageTitle" name="title" maxlength="64">
         </div>
         <div class="form-group">
             <label for="imageDescription">Description</label>
-            <textarea class="form-control" id="imageDescription" name="description"></textarea>
+            <textarea class="form-control" id="imageDescription" name="description" maxlength="20000"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" id="submitButton">Add Splash</button>
         <button type="button" class="btn btn-light hide" id="processingButton" disabled>Processing...</button>

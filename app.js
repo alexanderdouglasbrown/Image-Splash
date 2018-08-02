@@ -17,7 +17,7 @@ app.set("view engine", "ejs")
 app.use(express.static(__dirname + "/public"))
 app.use(methodOverride("_method"))
 
-app.use(require("express-session")({
+app.use(require("cookie-session")({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false

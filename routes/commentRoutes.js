@@ -49,6 +49,11 @@ router.put("/:comment_id", middleware.checkLoggedIn, middleware.checkCommentOwne
     const updateData = {
         text: req.body.text,
     }
+    console.log(updateData.text.value)
+    if (updateData.text == ""){
+        req.flash("error", "Comments cannot be blank")
+        return res.redirect("/splash/" + req.params.id)
+    }
     Comment.findByIdAndUpdate(req.params.comment_id, { $set: updateData }, (err) => {
         if (err) {
             console.log("Failed to update at id " + req.params.id)

@@ -10,7 +10,7 @@
     <form method="POST" action="/splash/<%= splash_id %>/comment/<%= comment._id %>/?_method=PUT">
         <div class="form-group">
             <label for="imageDescription">Comment</label>
-            <textarea class="form-control" id="imageDescription" name="text"><%= comment.text %></textarea>
+            <textarea class="form-control" id="imageDescription" name="text" maxlength="20000"><%= comment.text %></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>
     </form>

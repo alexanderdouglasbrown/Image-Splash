@@ -26,7 +26,7 @@
             <div class = "col-12 comment">
                 <form method="POST" action="/splash/<%= splash._id %>/comment/new">
                     <div class="form-group">
-                        <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..."></textarea>
+                        <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..." maxlength="20000"></textarea>
                         <button type="submit" class="btn btn-primary add-comment">Add Comment</button>
                     </div>
                 </form>

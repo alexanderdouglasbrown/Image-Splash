@@ -47,7 +47,7 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
                     sendToCloudinary()
                 } else {
                     fs.unlink(uploadURI, (err) => { })
-                    req.flash("error", "Could not create Splash (Processing)")
+                    req.flash("error", "File not recognized as an image")
                     return res.redirect("/splash")
                 }
             })
@@ -58,7 +58,7 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
             fs.unlink(uploadURI, (err) => { })
             fs.unlink(processedURI, (err) => { })
             if (err) {
-                req.flash("error", "Could not create Splash (Upload)")
+                req.flash("error", "An error occurred while uploading the image")
                 return res.redirect("/splash")
             } else {
                 commitToDB(image.public_id, image.format)
@@ -80,7 +80,7 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
 
         Splash.create(newSplash, (err) => {
             if (err) {
-                req.flash("error", "Could not create Splash (DB)")
+                req.flash("error", "An error occurred while making the Splash")
             }
             res.redirect("/splash")
         })

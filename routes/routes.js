@@ -12,6 +12,14 @@ router.get("/register", (req, res) => {
 })
 
 router.post("/register", (req, res) => {
+    if (req.body.username.length < 3){
+        req.flash("error", "Username must be at least 3 characters long")
+        return res.redirect("/register")
+    }
+    if (req.body.password.length < 8){
+        req.flash("error", "Password must be at least 8 characters long")
+        return res.redirect("/register")
+    }
     User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
         if (err) {
             req.flash("error", err.message)

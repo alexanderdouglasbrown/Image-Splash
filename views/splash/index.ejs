@@ -13,10 +13,10 @@
 
 <nav class="pagination">
     <% if (Number(page) > 1) { %>
-        <li class="page-item"><a class="page-link" href="/splash?page=<%= Number(page) - 1 %>">Previous</a></li>
+        <li class="page-item prev-next"><a class="page-link" href="/splash?page=<%= Number(page) - 1 %>">Previous</a></li>
     <% } %>
     <% if ((Number(page) + 1) <= maxPages) { %>
-        <li class="page-item"><a class="page-link" href="/splash?page=<%= Number(page) + 1 %>">Next</a></li>
+        <li class="page-item prev-next"><a class="page-link" href="/splash?page=<%= Number(page) + 1 %>">Next</a></li>
     <% } %>
 </nav>
 

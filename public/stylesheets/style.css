@@ -77,6 +77,11 @@ p {
     max-width: 100%;
 }
 
+.prev-next {
+    width: 100px;
+    text-align: center;
+}
+
 #navButtons button {
     width: 75px;
     margin-right: 5px;
