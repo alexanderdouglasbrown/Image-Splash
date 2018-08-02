@@ -16,6 +16,11 @@ p {
     white-space: pre-wrap;
 }
 
+.banner-image {
+    max-height: 40px;
+    width: auto;
+}
+
 .comment textarea {
     min-height: 75px;
 }
