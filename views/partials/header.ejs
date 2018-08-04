@@ -12,14 +12,17 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="/splash"><img src="/images/banner.png" class="banner-image"></a>
+            <a class="navbar-brand" href="/splash">
+                <img src="/images/banner.png" class="banner-image">
+            </a>
             <ul class="nav nav-pills justify-content-end">
                 <% if (user) { %>
                     <li class="nav-item">
@@ -27,21 +30,23 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                            <strong><%= user.username %></strong>
+                            <strong>
+                                <%= user.username %>
+                            </strong>
                         </a>
                         <div class="dropdown-menu">
                             <!-- <a class="dropdown-item disabled" href="">Profile</a>
                             <div class="dropdown-divider"></div> -->
                             <a class="dropdown-item" href="/logout">Log out</a>
                         </div>
-                <% } else { %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="/login">Log In</a>
-                        </li>
-                <% } %>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/login">Log In</a>
+                            </li>
+                            <% } %>
             </ul>
         </div>
     </nav>
@@ -50,9 +55,9 @@
             <div class="alert alert-secondary" role="alert">
                 <%= info %>
             </div>
-        <% } %>
-        <% if (typeof error != "undefined" && error.length != 0) { %>
-            <div class="alert alert-danger" role="alert">
-                <%= error %>
-            </div>
-        <% } %>
+            <% } %>
+                <% if (typeof error != "undefined" && error.length != 0) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %>
+                    </div>
+                    <% } %>

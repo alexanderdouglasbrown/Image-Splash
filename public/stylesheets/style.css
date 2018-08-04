@@ -114,3 +114,13 @@ p {
 #delete-button{
     float:right;
 }
+
+#toggle-password-visible {
+    background: white;
+    border-color: #ced4da;
+    border-left: none;
+}
+
+#toggle-password-visible:hover {
+    color: #9aa3ab;
+}

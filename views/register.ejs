@@ -1,20 +1,29 @@
 <% include partials/header %>
 
-<div class="box">
-  <h1>Registration</h1>
-  <form action="/register" method = "POST">
+  <div class="box">
+    <h1>Registration</h1>
+    <form action="/register" method="POST">
       <form>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" maxlength="32">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="username" maxlength="32">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-group">
             <input type="password" class="form-control" id="password" name="password">
+            <div class="input-group-append">
+              <button id="toggle-password-visible" class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisible()">
+                <i id="password-toggle-eye" class="far fa-eye-slash"></i>
+              </button>
+            </div>
           </div>
-          <button type="submit" class="btn btn-primary">Register</button>
-        </form>
-  </form>
-</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+    </form>
+  </div>
 
-<% include partials/footer %>
+  <script src="/javascripts/togglePasswordVisible.js"></script>
+
+  <% include partials/footer %>
