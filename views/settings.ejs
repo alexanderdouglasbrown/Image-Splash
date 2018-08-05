@@ -1,0 +1,23 @@
+<% include partials/header %>
+
+<div class="box">
+    <h3>Change Password</h3>
+    <form method="POST">
+        <div class="form-group">
+            <label for="password">New Password</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password">
+                <div class="input-group-append">
+                    <button id="toggle-password-visible" class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisible()">
+                        <i id="password-toggle-eye" class="far fa-eye-slash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Change</button>
+    </form>
+</div>
+
+<script src="/javascripts/togglePasswordVisible.js"></script>
+
+<% include partials/footer %>

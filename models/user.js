@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
         maxlength: 32,
         required: true,
     },
-    password: String,
     isMod: {
         type: Boolean,
         default: false

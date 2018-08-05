@@ -1,5 +1,6 @@
 const express = require("express"),
     passport = require("passport"),
+    middleware = require("../middleware")
     router = express.Router(),
     User = require("../models/user")
 
@@ -40,6 +41,30 @@ router.post("/login", passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true
 }))
+
+router.get("/settings", middleware.checkLoggedIn,  (req,res) => {
+    res.render("settings")
+})
+
+router.post("/settings", (req, res) => {
+    User.findOne({username: req.user.username}, (err, user) => {
+        if (err) {
+            req.flash("error", "An error occured while locating user")
+            console.log(err.message)
+            return res.redirect("/splash")
+        } 
+        user.setPassword(req.body.password, (err)=>{
+            if (err) {
+                req.flash("error", "An error occured while trying to update password")
+                console.log(err.message)
+            } else {
+                req.flash("info", "Password changed")
+                user.save()
+            }
+            return res.redirect("/splash")
+        })
+    })
+})
 
 router.get("/logout", (req, res) => {
     req.logout()
