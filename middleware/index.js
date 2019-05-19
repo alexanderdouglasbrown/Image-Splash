@@ -12,6 +12,8 @@ module.exports = {
     },
     checkSplashOwner: (req, res, next) => {
         Splash.findById(req.params.id, (err, cb) => {
+            if (err)
+                return
             if (cb.author.id.equals(req.user._id) || req.user.isMod)
                 return next()
             else {
@@ -22,6 +24,8 @@ module.exports = {
     },
     checkCommentOwner: (req, res, next) => {
         Comment.findById(req.params.comment_id, (err, cb) => {
+            if (err)
+                return
             if (cb.author.id.equals(req.user._id) || req.user.isMod)
                 return next()
             else {
