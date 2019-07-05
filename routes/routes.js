@@ -13,11 +13,11 @@ router.get("/register", (req, res) => {
 })
 
 router.post("/register", (req, res) => {
-    // The site is now read-only
-    req.flash("error", "This site is in read-only mode")
-    return res.redirect("/splash")
+    // // The site is now read-only
+    // req.flash("error", "This site is in read-only mode")
+    // return res.redirect("/splash")
 
-    // This is what would run if the site wasn't read-only
+    // // This is what would run if the site wasn't read-only
     if (req.body.username.length < 3) {
         req.flash("error", "Username must be at least 3 characters long")
         return res.redirect("/register")
@@ -41,12 +41,13 @@ router.get("/login", (req, res) => {
     res.render("login")
 })
 
-router.post("/login", (req, res) => {
-    // The site is now read-only
-    req.flash("error", "This site is in read-only mode")
-    return res.redirect("/splash")
+router.post("/login", (req, res, next) => {
+    // // The site is now read-only
+    // req.flash("error", "This site is in read-only mode")
+    // return res.redirect("/splash")
 
-    // This is what would run if the site wasn't read-only
+    // // This is what would run if the site wasn't read-only
+    return next()
 }, passport.authenticate("local", {
     successRedirect: "/splash",
     failureRedirect: "/login",
