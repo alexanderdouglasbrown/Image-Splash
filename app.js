@@ -22,7 +22,7 @@ app.use(require("express-session")({
     saveUninitialized: false,
     resave: false,
     cookie: {
-        maxAge: 30 * 24* 60 * 60 * 1000
+        maxAge: 30 * 24 * 60 * 60 * 1000
     }
 }))
 
@@ -54,6 +54,6 @@ app.use((req, res) => {
     res.send("404 - Not Found")
 })
 
-app.listen(process.env.PORT, (error) => {
-    console.log(`Listening on port ${process.env.PORT}`)
+app.listen(process.env.PORT || 3000, (error) => {
+    console.log(`Listening on port ${process.env.PORT || 3000}`)
 })
