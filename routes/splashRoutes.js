@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
         pageNum = req.query.page
 
     Splash.find().sort({ "date": -1 }).limit(displayAmount).skip((pageNum - 1) * displayAmount).exec((err, cb) => {
-        Splash.count().exec((err, count) => {
+        Splash.countDocuments().exec((err, count) => {
             const maxPages = Math.ceil(count / displayAmount)
             res.render("splash/index", { splashes: cb, page: pageNum, maxPages: maxPages })
         })

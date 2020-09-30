@@ -10,7 +10,10 @@ const express = require("express"),
 const userModel = require("./models/user")
 
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.DB_URL, { useMongoClient: true })
+mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set("view engine", "ejs")
@@ -54,6 +57,6 @@ app.use((req, res) => {
     res.send("404 - Not Found")
 })
 
-app.listen(process.env.PORT || 3000, (error) => {
+app.listen(process.env.PORT || 3000, error => {
     console.log(`Listening on port ${process.env.PORT || 3000}`)
 })
