@@ -47,7 +47,7 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
                     sendToCloudinary()
                 } else {
                     fs.unlink(uploadURI, (err) => { })
-                    req.flash("error", "File not recognized as an image")
+                    req.flash("error", "File not recognized as an image") // You may get this error if ImageMagick is not installed/configured.
                     return res.redirect("/splash")
                 }
             })
