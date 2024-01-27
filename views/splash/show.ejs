@@ -1,46 +1,46 @@
-<% include ../partials/header %>
+<%- include('../partials/header') %>
 
-    <div class="row">
-        <div class="col-12 box" id="splash">
-            <h1>
-                <%= splash.title %>
-            </h1>
-            <img class="full-splash-image" src="https://res.cloudinary.com/hpzzynrei/image/upload/v1524635540/<%= splash.public_id %>.<%= splash.format %>">
-            <div class="like">
-                <button class="btn unreleased"><i class="far fa-heart"></i></button>
-                <div class="splash-author">
-                    <em>Submitted by<strong>
-                        <%= splash.author.username %>
-                    </strong></em>
-                    <% if (user && (user._id.equals(splash.author.id) || user.isMod)) { %>
-                        <span class = "edit-button">
-                            <a href="<%= splash._id %>/edit">
-                                <i class="far fa-edit" aria-hidden="true"></i> Edit</a>
-                            <% } %>
-                        </span>
-                    </div>
-            </div>
-            <p><%= splash.description %></p>
-        </div>
-        <% if (user) { %>
-            <div class = "col-12 comment">
-                <form method="POST" action="/splash/<%= splash._id %>/comment/new">
-                    <div class="form-group">
-                        <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..." maxlength="20000"></textarea>
-                        <button type="submit" class="btn btn-primary add-comment">Add Comment</button>
-                    </div>
-                </form>
-            </div>
-        <% } %>
-            <% splash.comments.forEach((comment) => { %>
-                <div class="col-12 comment">
-                    <strong><%= comment.author.username %></strong><p><%= comment.text %></p>
-                    <% if (user && (user._id.equals(comment.author.id) || user.isMod)) { %>
-                        <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit"><i class="far fa-edit" aria-hidden="true"></i>Edit</a>
-                    <% } %>
+<div class="row">
+    <div class="col-12 box" id="splash">
+        <h1>
+            <%= splash.title %>
+        </h1>
+        <img class="full-splash-image" src="https://res.cloudinary.com/hpzzynrei/image/upload/v1524635540/<%= splash.public_id %>.<%= splash.format %>">
+        <div class="like">
+            <button class="btn unreleased"><i class="far fa-heart"></i></button>
+            <div class="splash-author">
+                <em>Submitted by<strong>
+                    <%= splash.author.username %>
+                </strong></em>
+                <% if (user && (user._id.equals(splash.author.id) || user.isMod)) { %>
+                    <span class = "edit-button">
+                        <a href="<%= splash._id %>/edit">
+                            <i class="far fa-edit" aria-hidden="true"></i> Edit</a>
+                        <% } %>
+                    </span>
                 </div>
-            <% }) %>
         </div>
+        <p><%= splash.description %></p>
     </div>
+    <% if (user) { %>
+        <div class = "col-12 comment">
+            <form method="POST" action="/splash/<%= splash._id %>/comment/new">
+                <div class="form-group">
+                    <textarea class="form-control" id="comment" name="comment" placeholder="Leave a comment..." maxlength="20000"></textarea>
+                    <button type="submit" class="btn btn-primary add-comment">Add Comment</button>
+                </div>
+            </form>
+        </div>
+    <% } %>
+        <% splash.comments.forEach((comment) => { %>
+            <div class="col-12 comment">
+                <strong><%= comment.author.username %></strong><p><%= comment.text %></p>
+                <% if (user && (user._id.equals(comment.author.id) || user.isMod)) { %>
+                    <a href = "/splash/<%= splash._id %>/comment/<%= comment._id %>/edit"><i class="far fa-edit" aria-hidden="true"></i>Edit</a>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+</div>
 
-    <% include ../partials/footer %>
+<%- include('../partials/footer') %>
