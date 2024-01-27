@@ -10,10 +10,7 @@ const express = require("express"),
 const userModel = require("./models/user")
 
 mongoose.Promise = global.Promise
-mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
+mongoose.connect(process.env.DB_URL)
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.set("view engine", "ejs")

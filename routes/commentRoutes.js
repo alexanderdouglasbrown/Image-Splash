@@ -5,7 +5,7 @@ const express = require("express"),
     Comment = require("../models/comment.js")
 
 router.post("/new", middleware.checkLoggedIn, (req, res) => {
-    if (req.body.comment == ""){
+    if (req.body.comment == "") {
         req.flash("error", "Comments cannot be blank")
         return res.redirect("/splash/" + req.params.id)
     }
@@ -17,58 +17,62 @@ router.post("/new", middleware.checkLoggedIn, (req, res) => {
         }
     }
 
-    Comment.create(newComment, (err, comment) => {
-        if (err) {
-            req.flash("error", "Could not create comment")
-            return res.redirect("/splash/" + req.params.id)
-        } else {
-            Splash.findById(req.params.id, (err, splash) => {
-                if (err) {
+    Comment.create(newComment)
+        .then(comment => {
+            Splash.findById(req.params.id)
+                .then(splash => {
+                    splash.comments.push(comment)
+                    splash.save()
+                    res.redirect("/splash/" + req.params.id)
+                })
+                .catch(err => {
                     req.flash("error", "Could not create comment")
                     return res.redirect("/splash/" + req.params.id)
-                }
-                splash.comments.push(comment)
-                splash.save()
-                res.redirect("/splash/" + req.params.id)
-            })
-        }
-    })
+                })
+        })
+        .catch(err => {
+            req.flash("error", "Could not create comment")
+            return res.redirect("/splash/" + req.params.id)
+        })
 })
 
 router.get("/:comment_id/edit", middleware.checkLoggedIn, middleware.checkCommentOwner, (req, res) => {
-    Comment.findById(req.params.comment_id, (err, cb) => {
-        if (err){
+    Comment.findById(req.params.comment_id)
+        .then(cb => {
+            res.render("splash/comments/edit", { comment: cb, splash_id: req.params.id })
+        })
+        .catch(err => {
             req.flash("error", "Could not edit comment")
             return res.redirect("/splash/" + req.params.id)
-        }
-        res.render("splash/comments/edit", {comment: cb, splash_id: req.params.id})
-    })
+        })
 })
 
 router.put("/:comment_id", middleware.checkLoggedIn, middleware.checkCommentOwner, (req, res) => {
     const updateData = {
         text: req.body.text,
     }
-    console.log(updateData.text.value)
-    if (updateData.text == ""){
+    
+    if (updateData.text == "") {
         req.flash("error", "Comments cannot be blank")
         return res.redirect("/splash/" + req.params.id)
     }
-    Comment.findByIdAndUpdate(req.params.comment_id, { $set: updateData }, (err) => {
-        if (err) {
+    Comment.findByIdAndUpdate(req.params.comment_id, { $set: updateData })
+        .then(cb => {
+            res.redirect("/splash/" + req.params.id)
+        })
+        .catch(err => {
             console.log("Failed to update at id " + req.params.id)
-        }
-        res.redirect("/splash/" + req.params.id)
-    })
+        })
 })
 
 router.delete("/:comment_id", middleware.checkLoggedIn, middleware.checkCommentOwner, (req, res) => {
-    Comment.findByIdAndRemove(req.params.comment_id, (err) => {
-        if (err) {
+    Comment.findByIdAndDelete(req.params.comment_id)
+        .then(cb => {
+            res.redirect("/splash/" + req.params.id)
+        })
+        .catch(err => {
             console.log("Failed to delete at id " + req.params.id)
-        }
-        res.redirect("/splash/" + req.params.id)
-    })
+        })
 })
 
 module.exports = router

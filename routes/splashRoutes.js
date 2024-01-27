@@ -24,12 +24,16 @@ router.get("/", (req, res) => {
     if (req.query.page && req.query.page > 0)
         pageNum = req.query.page
 
-    Splash.find().sort({ "date": -1 }).limit(displayAmount).skip((pageNum - 1) * displayAmount).exec((err, cb) => {
-        Splash.countDocuments().exec((err, count) => {
-            const maxPages = Math.ceil(count / displayAmount)
-            res.render("splash/index", { splashes: cb, page: pageNum, maxPages: maxPages })
+    Splash.find().sort({ "date": -1 }).limit(displayAmount).skip((pageNum - 1) * displayAmount)
+        .then(cb => {
+            Splash.countDocuments()
+                .then((count) => {
+                    const maxPages = Math.ceil(count / displayAmount)
+                    res.render("splash/index", { splashes: cb, page: pageNum, maxPages: maxPages })
+                })
+                .catch()
         })
-    })
+        .catch()
 })
 
 router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) => {
@@ -48,6 +52,7 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
                 } else {
                     fs.unlink(uploadURI, (err) => { })
                     req.flash("error", "File not recognized as an image") // You may get this error if ImageMagick is not installed/configured.
+                                                                          // When installing ImageMagick on Windows, check "Install legacy utilities"
                     return res.redirect("/splash")
                 }
             })
@@ -78,12 +83,13 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
             }
         }
 
-        Splash.create(newSplash, (err) => {
-            if (err) {
+        Splash.create(newSplash)
+            .then(cb => {
+                res.redirect("/splash")
+            })
+            .catch(err => {
                 req.flash("error", "An error occurred while making the Splash")
-            }
-            res.redirect("/splash")
-        })
+            })
     }
 
     processImage()
@@ -94,21 +100,27 @@ router.get("/new", middleware.checkLoggedIn, (req, res) => {
 })
 
 router.get("/:id", (req, res) => {
-    Splash.findById(req.params.id).populate("comments").exec((err, cb) => {
-        if (err || !cb) {
+    Splash.findById(req.params.id).populate("comments")
+        .then(cb => {
+            if (!cb) {
+                req.flash("error", "Splash not found")
+                return res.redirect("/splash")
+            }
+            res.render("splash/show", { splash: cb })
+        })
+        .catch(err => {
             req.flash("error", "Splash not found")
             return res.redirect("/splash")
-        }
-        res.render("splash/show", { splash: cb })
-    })
+        })
 })
 
 router.get("/:id/edit", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, res) => {
-    Splash.findById(req.params.id, (err, cb) => {
-        if (err) {
-            console.log("Failed to find Splash for editing at id " + req.params.id)
-        }
+    Splash.findById(req.params.id)
+    .then(cb => {
         res.render("splash/edit", { splash: cb })
+    })
+    .catch(err=>{
+        console.log("Failed to find Splash for editing at id " + req.params.id)
     })
 })
 
@@ -117,20 +129,22 @@ router.put("/:id", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, 
         title: req.body.title,
         description: req.body.description
     }
-    Splash.findByIdAndUpdate(req.params.id, { $set: updateData }, (err) => {
-        if (err) {
+    Splash.findByIdAndUpdate(req.params.id, { $set: updateData })
+        .then(cb => {
+            res.redirect("/splash/" + req.params.id)
+        })
+        .catch(err => {
             console.log("Failed to update at id " + req.params.id)
-        }
-        res.redirect("/splash/" + req.params.id)
-    })
+        })
 })
 
 router.delete("/:id", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, res) => {
-    Splash.findByIdAndRemove(req.params.id, (err) => {
-        if (err) {
-            console.log("Failed to delete at id " + req.params.id)
-        }
+    Splash.findByIdAndDelete(req.params.id)
+    .then(cb => {
         res.redirect("/splash")
+    })
+    .catch(err => {
+        console.log("Failed to delete at id " + req.params.id)
     })
 })
 

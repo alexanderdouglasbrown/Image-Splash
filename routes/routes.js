@@ -26,15 +26,16 @@ router.post("/register", (req, res) => {
         req.flash("error", "Password must be at least 8 characters long")
         return res.redirect("/register")
     }
-    User.register(new User({ username: req.body.username }), req.body.password, (err, user) => {
-        if (err) {
+    User.register(new User({ username: req.body.username }), req.body.password)
+        .then(user => {
+            passport.authenticate("local")(req, res, () => {
+                res.redirect("/splash")
+            })
+        })
+        .catch(err => {
             req.flash("error", err.message)
             return res.redirect("/register")
-        }
-        passport.authenticate("local")(req, res, () => {
-            res.redirect("/splash")
         })
-    })
 })
 
 router.get("/login", (req, res) => {
@@ -59,29 +60,32 @@ router.get("/settings", middleware.checkLoggedIn, (req, res) => {
 })
 
 router.post("/settings", (req, res) => {
-    User.findOne({ username: req.user.username }, (err, user) => {
-        if (err) {
+    User.findOne({ username: req.user.username })
+        .then(user => {
+            user.setPassword(req.body.password)
+                .then(cb => {
+                    req.flash("info", "Password changed")
+                    user.save()
+
+                    return res.redirect("/splash")
+                })
+                .catch(err => {
+                    req.flash("error", "An error occured while trying to update password")
+                    console.log(err.message)
+                })
+        })
+        .catch(err => {
             req.flash("error", "An error occured while locating user")
             console.log(err.message)
             return res.redirect("/splash")
-        }
-        user.setPassword(req.body.password, (err) => {
-            if (err) {
-                req.flash("error", "An error occured while trying to update password")
-                console.log(err.message)
-            } else {
-                req.flash("info", "Password changed")
-                user.save()
-            }
-            return res.redirect("/splash")
         })
-    })
 })
 
 router.get("/logout", (req, res) => {
-    req.logout()
-    req.flash("info", "You have been logged out")
-    res.redirect("/splash")
+    req.logout(() => {
+        req.flash("info", "You have been logged out")
+        res.redirect("/splash")
+    })
 })
 
 module.exports = router

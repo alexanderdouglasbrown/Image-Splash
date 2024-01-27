@@ -1,6 +1,4 @@
 function togglePasswordVisible(){
-    
-
     const passwordBox = document.getElementById("password")
     const eyeIcon = document.getElementById("password-toggle-eye")
     
