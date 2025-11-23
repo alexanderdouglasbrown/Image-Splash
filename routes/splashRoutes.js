@@ -3,10 +3,7 @@ const express = require("express"),
     middleware = require("../middleware"),
     multer = require("multer"),
     fs = require("fs"),
-    gm = require("gm").subClass({
-        imageMagick: true,
-        appPath: process.env.IMAGEMAGICK_PATH
-    }),
+    gm = require("gm").subClass({ imageMagick: true }),
     cloudinary = require("cloudinary"),
     Splash = require("../models/splash.js")
 
@@ -56,6 +53,8 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
                     fs.unlink(uploadURI, (err) => { })
                     req.flash("error", "File not recognized as an image") // You may get this error if ImageMagick is not installed/configured.
                     // When installing ImageMagick on Windows, check "Install legacy utilities"
+                    // gm relies on the "convert" utility, which is not included by default in recent ImageMagick installers,
+                    // so copy and rename "magick.exe" to "convert.exe" in the installation folder.
                     return res.redirect("/splash")
                 }
             })
