@@ -46,6 +46,9 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Daemon
+daemon
+
 # Typescript v1 declaration files
 typings/
 
