@@ -3,7 +3,10 @@ const express = require("express"),
     middleware = require("../middleware"),
     multer = require("multer"),
     fs = require("fs"),
-    gm = require("gm").subClass({ imageMagick: true }),
+    gm = require("gm").subClass({
+        imageMagick: true,
+        appPath: process.env.IMAGEMAGICK_PATH
+    }),
     cloudinary = require("cloudinary"),
     Splash = require("../models/splash.js")
 
@@ -52,7 +55,7 @@ router.post("/", middleware.checkLoggedIn, upload.single("image"), (req, res) =>
                 } else {
                     fs.unlink(uploadURI, (err) => { })
                     req.flash("error", "File not recognized as an image") // You may get this error if ImageMagick is not installed/configured.
-                                                                          // When installing ImageMagick on Windows, check "Install legacy utilities"
+                    // When installing ImageMagick on Windows, check "Install legacy utilities"
                     return res.redirect("/splash")
                 }
             })
@@ -116,12 +119,12 @@ router.get("/:id", (req, res) => {
 
 router.get("/:id/edit", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, res) => {
     Splash.findById(req.params.id)
-    .then(cb => {
-        res.render("splash/edit", { splash: cb })
-    })
-    .catch(err=>{
-        console.log("Failed to find Splash for editing at id " + req.params.id)
-    })
+        .then(cb => {
+            res.render("splash/edit", { splash: cb })
+        })
+        .catch(err => {
+            console.log("Failed to find Splash for editing at id " + req.params.id)
+        })
 })
 
 router.put("/:id", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, res) => {
@@ -140,12 +143,12 @@ router.put("/:id", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, 
 
 router.delete("/:id", middleware.checkLoggedIn, middleware.checkSplashOwner, (req, res) => {
     Splash.findByIdAndDelete(req.params.id)
-    .then(cb => {
-        res.redirect("/splash")
-    })
-    .catch(err => {
-        console.log("Failed to delete at id " + req.params.id)
-    })
+        .then(cb => {
+            res.redirect("/splash")
+        })
+        .catch(err => {
+            console.log("Failed to delete at id " + req.params.id)
+        })
 })
 
 module.exports = router
